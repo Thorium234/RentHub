@@ -1,0 +1,89 @@
+RENTHUB - WHAT YOU NEED TO PROVIDE
+==================================
+
+Reviewed requirements from README.md and orgIdea.txt.
+Before V1 development can start, the following must be provided:
+
+-------------------------------------------------------------------------
+1. ACCOUNT / SERVICES  (things only you can create)
+-------------------------------------------------------------------------
+
+  [ ] 1. Firebase project
+         - Create a Firebase project in the Firebase Console.
+         - Enable the services:
+             * Authentication
+             * Cloud Firestore
+             * Cloud Messaging
+             * Analytics
+             * Crashlytics
+             * (Storage - optional for V1)
+
+  [ ] 2. Firebase config files
+         - google-services.json        (Android)
+         - GoogleService-Info.plist    (iOS)
+         - Downloaded from Firebase Console after registering the app.
+         - NOTE: These must NOT be committed to GitHub.
+
+  [ ] 3. Authentication methods to enable
+         - Phone (recommended for Kenya)
+         - Email / password
+         - Or both
+
+-------------------------------------------------------------------------
+2. DECISIONS / INFO
+-------------------------------------------------------------------------
+
+  [ ] 4. App name and branding
+         - README uses "RentHub".
+         - orgIdea.txt suggests "HIRIKA".
+         - Pick ONE (affects bundle ID, display name, colors).
+
+  [ ] 5. Target platform first
+         - Android only
+         - Or Android + iOS now
+         - Also decide: bare React Native (per README) or Expo.
+
+  [ ] 6. Package / bundle ID
+         - e.g. com.thorium234.renthub
+         - Must be unique on each store.
+
+  [ ] 7. Final category list
+         - Suggested: Events, Vehicles, Equipment, Technology,
+           Furniture, Tools, Sports, Other.
+         - Confirm which categories V1 ships with.
+
+  [ ] 8. Location format
+         - Confirm county / town / area model.
+           (README example: County: Kakamega, Town: Kakamega,
+            Area: Milimani)
+         - Decide whether a preloaded list of Kenya counties is needed.
+
+-------------------------------------------------------------------------
+3. ENVIRONMENT (for running / testing)
+-------------------------------------------------------------------------
+
+  [ ] 9. Development machine
+         - Node.js installed?
+         - npm installed?
+         - Git installed?
+         - Android Studio + emulator/device available for testing?
+
+  [ ] 10. Design preference
+         - Brand colors (if any) or a general visual feel
+           (minimal, marketplace-style, etc.).
+
+-------------------------------------------------------------------------
+SUMMARY OF FILES TO CREATE
+-------------------------------------------------------------------------
+
+  * google-services.json              (from Firebase Console, keep local)
+  * GoogleService-Info.plist          (from Firebase Console, keep local)
+  * .env                              (API keys, keep local)
+  * .gitignore                        (add the above files)
+
+-------------------------------------------------------------------------
+REMINDER
+-------------------------------------------------------------------------
+
+  Do not commit private credentials, service account keys, or secrets
+  to GitHub. Add sensitive files to .gitignore.
