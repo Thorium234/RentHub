@@ -102,9 +102,11 @@ RentHub is designed to keep infrastructure requirements extremely low during dev
 
 ### Mobile Application
 
-**React Native**
+**React Native (Expo)**
 
 Used for building the Android/iOS mobile application.
+
+The app is built with **Expo** (managed workflow) using **Expo Development Builds** for native modules. Firebase is integrated through the official `@react-native-firebase` packages, which are wired up via Expo Config Plugins during prebuild.
 
 ### Backend Services
 
@@ -129,10 +131,11 @@ The application is intentionally designed around Firebase's client SDK capabilit
 
 * Node.js
 * npm
-* React Native
+* React Native (Expo SDK)
+* Expo Go app (for quick testing on a physical device)
 * Git
 * GitHub
-* Android Studio
+* Android Studio (only if building a local development build for Android)
 * Firebase CLI
 
 ---
@@ -502,12 +505,13 @@ Install the following:
 * Node.js
 * npm
 * Git
-* React Native development environment
-* Android Studio
-* Java Development Kit
+* Expo account
 * Firebase account
+* The **Expo Go** app on a physical device (or an Android emulator)
 
-For React Native development, follow the official React Native environment setup documentation for your operating system.
+Android Studio and a JDK are **not** required for day-to-day development. They are only needed if you build a native development build locally with `npx expo run:android` instead of using Expo Go.
+
+For Expo environment setup, follow the official Expo documentation for your operating system.
 
 ---
 
@@ -557,9 +561,16 @@ Analytics
 Crashlytics
 ```
 
-Configure the Android/iOS application inside Firebase.
+Register the Android app with package ID `com.thorium234.renthub` and the iOS app with bundle ID `com.thorium234.renthub` inside Firebase.
 
-Download the appropriate Firebase configuration files and place them according to the React Native Firebase setup used by the project.
+Download the appropriate Firebase configuration files and place them in the **project root**:
+
+```text
+google-services.json        (Android)
+GoogleService-Info.plist    (iOS)
+```
+
+The `@react-native-firebase/app` Expo Config Plugin (already declared in `app.json`) automatically links these files when a native build is generated with `npx expo prebuild`. You do not need to touch Gradle or Xcode settings manually.
 
 Do **not** commit private credentials, service account keys, or secrets to GitHub.
 
@@ -582,29 +593,37 @@ If a Firebase configuration file is required by the mobile build process, follow
 
 # ▶️ Run the Application
 
-Start Metro:
+Start the Expo development server (Metro):
 
 ```bash
 npm start
 ```
 
-Run Android:
+Or directly:
 
 ```bash
-npm run android
+npx expo start
 ```
 
-If using the React Native CLI directly:
+### Quick testing with Expo Go
+
+Scan the QR code shown in the terminal with the Expo Go app on your device. This works for pure JavaScript features without any native build.
+
+### Development builds (required for Firebase native modules)
+
+Firebase Authentication and Firestore rely on native modules, so they require a **development build**, not Expo Go. Build one for Android:
 
 ```bash
-npx react-native run-android
+npx expo run:android
 ```
 
-For iOS:
+For iOS (macOS only):
 
 ```bash
-npx react-native run-ios
+npx expo run:ios
 ```
+
+The first run generates the native `android/` and `ios/` projects and links your `google-services.json` / `GoogleService-Info.plist` files through the Firebase config plugins.
 
 ---
 
@@ -622,11 +641,13 @@ npm install
 npm start
 ```
 
-Then in another terminal:
+Then in another terminal (or press a key in the Expo terminal):
 
 ```bash
 npm run android
 ```
+
+This starts Metro, then opens the app on a connected Android device or emulator via a development build.
 
 ---
 
