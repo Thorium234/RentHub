@@ -9,6 +9,7 @@ import ListingDetailScreen from './src/screens/ListingDetailScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
 import AuthScreen from './src/screens/AuthScreen';
 import FavoritesScreen from './src/screens/FavoritesScreen';
+import CreateListingScreen from './src/screens/CreateListingScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -48,6 +49,7 @@ function RootNavigator() {
         <>
           <Stack.Screen name="MainTabs" component={HomeTabs} />
           <Stack.Screen name="ListingDetail" component={ListingDetailScreen} />
+          <Stack.Screen name="CreateListing" component={CreateListingScreen} />
         </>
       )}
     </Stack.Navigator>

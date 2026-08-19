@@ -64,6 +64,10 @@ export default function HomeScreen({ navigation }) {
         contentContainerStyle={styles.list}
         ListEmptyComponent={<Text style={styles.empty}>No listings found</Text>}
       />
+
+      <TouchableOpacity style={styles.fab} onPress={() => navigation.navigate('CreateListing')}>
+        <Text style={styles.fabText}>+</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
@@ -93,4 +97,10 @@ const styles = StyleSheet.create({
   cardLocation: { fontSize: 13, color: '#6B7280', marginTop: 2 },
   cardPrice: { fontSize: 16, fontWeight: 'bold', color: '#2563EB', marginTop: 6 },
   empty: { textAlign: 'center', color: '#9CA3AF', marginTop: 40, fontSize: 15 },
+  fab: {
+    position: 'absolute', bottom: 20, right: 20, width: 56, height: 56,
+    borderRadius: 28, backgroundColor: '#2563EB', alignItems: 'center',
+    justifyContent: 'center', elevation: 4,
+  },
+  fabText: { color: '#fff', fontSize: 28, lineHeight: 30 },
 });
