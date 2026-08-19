@@ -9,12 +9,10 @@
     "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.thorium234.renthub",
-      "googleServicesFile": "./GoogleService-Info.plist"
+      "bundleIdentifier": "com.thorium234.renthub"
     },
     "android": {
       "package": "com.thorium234.renthub",
-      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",
@@ -24,10 +22,6 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "plugins": [
-      "@react-native-firebase/app",
-      "@react-native-firebase/auth"
-    ]
+    }
   }
 }
