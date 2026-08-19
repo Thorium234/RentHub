@@ -3,6 +3,7 @@ import { View, Text, FlatList, TextInput, TouchableOpacity, Image, StyleSheet, S
 import { CATEGORIES, LISTINGS } from '../data/mockData';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useFavorites } from '../context/FavoritesContext';
+import { useAuth } from '../context/AuthContext';
 import LocationFilter from '../components/LocationFilter';
 
 export default function HomeScreen({ navigation }) {
@@ -11,6 +12,12 @@ export default function HomeScreen({ navigation }) {
   const [selectedCounty, setSelectedCounty] = useState(null);
   const insets = useSafeAreaInsets();
   const { toggle, isFavorite } = useFavorites();
+  const { user } = useAuth();
+
+  const requireAuth = (action) => {
+    if (!user) { navigation.navigate('Auth'); return; }
+    action();
+  };
 
   const filtered = LISTINGS.filter((l) => {
     const matchesSearch = l.title.toLowerCase().includes(search.toLowerCase());
@@ -25,7 +32,7 @@ export default function HomeScreen({ navigation }) {
       onPress={() => navigation.navigate('ListingDetail', { listing: item })}
     >
       <Image source={{ uri: item.imageUrl }} style={styles.cardImage} />
-      <TouchableOpacity style={styles.heartBtn} onPress={() => toggle(item.id)}>
+      <TouchableOpacity style={styles.heartBtn} onPress={() => requireAuth(() => toggle(item.id))}>
         <Text style={styles.heart}>{isFavorite(item.id) ? '❤️' : '🤍'}</Text>
       </TouchableOpacity>
       <View style={styles.cardBody}>
@@ -93,7 +100,7 @@ export default function HomeScreen({ navigation }) {
         }
       />
 
-      <TouchableOpacity style={styles.fab} onPress={() => navigation.navigate('CreateListing')}>
+      <TouchableOpacity style={styles.fab} onPress={() => requireAuth(() => navigation.navigate('CreateListing'))}>
         <Text style={styles.fabText}>+</Text>
       </TouchableOpacity>
     </SafeAreaView>

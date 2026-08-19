@@ -7,9 +7,30 @@ export default function ProfileScreen({ navigation }) {
   const { user, signOut } = useAuth();
   const insets = useSafeAreaInsets();
 
+  if (!user) {
+    return (
+      <SafeAreaView style={[styles.container, { paddingTop: insets.top }]}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Profile</Text>
+        </View>
+        <View style={styles.guestContainer}>
+          <Text style={styles.guestIcon}>👤</Text>
+          <Text style={styles.guestText}>Sign in to access your profile, bookings, and more</Text>
+          <TouchableOpacity style={styles.signInBtn} onPress={() => navigation.navigate('Auth')}>
+            <Text style={styles.signInText}>Sign In</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
   return (
     <SafeAreaView style={[styles.container, { paddingTop: insets.top }]}>
       <View style={styles.header}>
+        <Text style={styles.title}>Profile</Text>
+      </View>
+
+      <View style={styles.profileCard}>
         <View style={styles.avatar}>
           <Text style={styles.avatarText}>{user?.displayName?.[0] || user?.email?.[0]?.toUpperCase() || '?'}</Text>
         </View>
@@ -49,7 +70,14 @@ function MenuItem({ icon, label, onPress }) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#F3F4F6' },
-  header: { alignItems: 'center', paddingVertical: 32, backgroundColor: '#fff' },
+  header: { paddingHorizontal: 16, paddingVertical: 12, backgroundColor: '#fff', borderBottomWidth: 1, borderBottomColor: '#E5E7EB' },
+  title: { fontSize: 28, fontWeight: 'bold', color: '#2563EB' },
+  guestContainer: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 32 },
+  guestIcon: { fontSize: 48, marginBottom: 12 },
+  guestText: { fontSize: 15, color: '#6B7280', textAlign: 'center', lineHeight: 22, marginBottom: 20 },
+  signInBtn: { backgroundColor: '#2563EB', borderRadius: 12, paddingHorizontal: 40, paddingVertical: 14 },
+  signInText: { color: '#fff', fontSize: 16, fontWeight: '600' },
+  profileCard: { alignItems: 'center', paddingVertical: 24, backgroundColor: '#fff' },
   avatar: {
     width: 80, height: 80, borderRadius: 40, backgroundColor: '#DBEAFE',
     alignItems: 'center', justifyContent: 'center',

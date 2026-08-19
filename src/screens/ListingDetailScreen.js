@@ -3,6 +3,7 @@ import { View, Text, Image, TouchableOpacity, ScrollView, StyleSheet, SafeAreaVi
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useFavorites } from '../context/FavoritesContext';
 import { useBookings } from '../context/BookingsContext';
+import { useAuth } from '../context/AuthContext';
 import AvailabilityCalendar from '../components/AvailabilityCalendar';
 
 export default function ListingDetailScreen({ route, navigation }) {
@@ -10,6 +11,12 @@ export default function ListingDetailScreen({ route, navigation }) {
   const insets = useSafeAreaInsets();
   const { toggle, isFavorite } = useFavorites();
   const { getBookingsForListing } = useBookings();
+  const { user } = useAuth();
+
+  const requireAuth = (action) => {
+    if (!user) { navigation.navigate('Auth'); return; }
+    action();
+  };
 
   const bookedDates = getBookingsForListing(listing.id)
     .filter((b) => b.status === 'confirmed')
@@ -27,7 +34,7 @@ export default function ListingDetailScreen({ route, navigation }) {
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
           <Text style={styles.backText}>← Back</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => toggle(listing.id)} style={styles.heartBtn}>
+        <TouchableOpacity onPress={() => requireAuth(() => toggle(listing.id))} style={styles.heartBtn}>
           <Text style={styles.heart}>{isFavorite(listing.id) ? '❤️' : '🤍'}</Text>
         </TouchableOpacity>
       </View>
@@ -65,11 +72,11 @@ export default function ListingDetailScreen({ route, navigation }) {
             <Text style={styles.reviewLink}>Write a review →</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.bookButton} onPress={() => navigation.navigate('BookingRequest', { listing })}>
+          <TouchableOpacity style={styles.bookButton} onPress={() => requireAuth(() => navigation.navigate('BookingRequest', { listing }))}>
             <Text style={styles.bookButtonText}>Book Now</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.chatButton} onPress={() => navigation.navigate('Chat', { listing })}>
+          <TouchableOpacity style={styles.chatButton} onPress={() => requireAuth(() => navigation.navigate('Chat', { listing }))}>
             <Text style={styles.chatButtonText}>Chat with Owner</Text>
           </TouchableOpacity>
         </View>

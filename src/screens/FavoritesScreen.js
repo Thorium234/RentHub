@@ -2,11 +2,13 @@ import React from 'react';
 import { View, Text, FlatList, TouchableOpacity, Image, StyleSheet, SafeAreaView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useFavorites } from '../context/FavoritesContext';
+import { useAuth } from '../context/AuthContext';
 import { LISTINGS } from '../data/mockData';
 
 export default function FavoritesScreen({ navigation }) {
   const insets = useSafeAreaInsets();
   const { ids } = useFavorites();
+  const { user } = useAuth();
 
   const favorites = LISTINGS.filter((l) => ids.includes(l.id));
 
@@ -17,8 +19,19 @@ export default function FavoritesScreen({ navigation }) {
       {favorites.length === 0 ? (
         <View style={styles.emptyContainer}>
           <Text style={styles.emptyIcon}>❤️</Text>
-          <Text style={styles.emptyText}>No favorites yet</Text>
-          <Text style={styles.emptySubtext}>Tap the heart icon on listings to save them here</Text>
+          {!user ? (
+            <>
+              <Text style={styles.emptyText}>Sign in to save favorites</Text>
+              <TouchableOpacity style={styles.signInBtn} onPress={() => navigation.navigate('Auth')}>
+                <Text style={styles.signInText}>Sign In</Text>
+              </TouchableOpacity>
+            </>
+          ) : (
+            <>
+              <Text style={styles.emptyText}>No favorites yet</Text>
+              <Text style={styles.emptySubtext}>Tap the heart icon on listings to save them here</Text>
+            </>
+          )}
         </View>
       ) : (
         <FlatList
@@ -58,4 +71,6 @@ const styles = StyleSheet.create({
   emptyIcon: { fontSize: 48, marginBottom: 12 },
   emptyText: { fontSize: 18, fontWeight: '600', color: '#374151' },
   emptySubtext: { fontSize: 14, color: '#9CA3AF', marginTop: 6, textAlign: 'center', paddingHorizontal: 40 },
+  signInBtn: { backgroundColor: '#2563EB', borderRadius: 12, paddingHorizontal: 32, paddingVertical: 12, marginTop: 16 },
+  signInText: { color: '#fff', fontSize: 15, fontWeight: '600' },
 });

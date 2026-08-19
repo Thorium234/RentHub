@@ -51,32 +51,27 @@ function HomeTabs() {
 }
 
 function RootNavigator() {
-  const { user, loading } = useAuth();
+  const { loading } = useAuth();
 
   if (loading) return null;
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {!user ? (
-        <Stack.Screen name="Auth" component={AuthScreen} />
-      ) : (
-        <>
-          <Stack.Screen name="MainTabs" component={HomeTabs} />
-          <Stack.Screen name="ListingDetail" component={ListingDetailScreen} />
-          <Stack.Screen name="CreateListing" component={CreateListingScreen} />
-          <Stack.Screen name="Chat" component={ChatScreen} />
-          <Stack.Screen name="BookingRequest" component={BookingRequestScreen} />
-          <Stack.Screen name="OwnerDashboard" component={OwnerDashboardScreen} />
-          <Stack.Screen name="RentalHistory" component={RentalHistoryScreen} />
-          <Stack.Screen name="Notifications" component={NotificationsScreen} />
-          <Stack.Screen name="WriteReview" component={WriteReviewScreen} />
-          <Stack.Screen name="OwnerProfile" component={OwnerProfileScreen} />
-          <Stack.Screen name="Verification" component={VerificationScreen} />
-          <Stack.Screen name="Contract" component={ContractScreen} />
-          <Stack.Screen name="Dispute" component={DisputeScreen} />
-          <Stack.Screen name="Analytics" component={AnalyticsScreen} />
-        </>
-      )}
+      <Stack.Screen name="MainTabs" component={HomeTabs} />
+      <Stack.Screen name="Auth" component={AuthScreen} options={{ presentation: 'modal' }} />
+      <Stack.Screen name="ListingDetail" component={ListingDetailScreen} />
+      <Stack.Screen name="CreateListing" component={CreateListingScreen} />
+      <Stack.Screen name="Chat" component={ChatScreen} />
+      <Stack.Screen name="BookingRequest" component={BookingRequestScreen} />
+      <Stack.Screen name="OwnerDashboard" component={OwnerDashboardScreen} />
+      <Stack.Screen name="RentalHistory" component={RentalHistoryScreen} />
+      <Stack.Screen name="Notifications" component={NotificationsScreen} />
+      <Stack.Screen name="WriteReview" component={WriteReviewScreen} />
+      <Stack.Screen name="OwnerProfile" component={OwnerProfileScreen} />
+      <Stack.Screen name="Verification" component={VerificationScreen} />
+      <Stack.Screen name="Contract" component={ContractScreen} />
+      <Stack.Screen name="Dispute" component={DisputeScreen} />
+      <Stack.Screen name="Analytics" component={AnalyticsScreen} />
     </Stack.Navigator>
   );
 }
