@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { View, Text, FlatList, TextInput, TouchableOpacity, Image, StyleSheet, SafeAreaView } from 'react-native';
 import { CATEGORIES, LISTINGS } from '../data/mockData';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useFavorites } from '../context/FavoritesContext';
 
 export default function HomeScreen({ navigation }) {
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(null);
   const insets = useSafeAreaInsets();
+  const { toggle, isFavorite } = useFavorites();
 
   const filtered = LISTINGS.filter((l) => {
     const matchesSearch = l.title.toLowerCase().includes(search.toLowerCase());
@@ -20,6 +22,9 @@ export default function HomeScreen({ navigation }) {
       onPress={() => navigation.navigate('ListingDetail', { listing: item })}
     >
       <Image source={{ uri: item.imageUrl }} style={styles.cardImage} />
+      <TouchableOpacity style={styles.heartBtn} onPress={() => toggle(item.id)}>
+        <Text style={styles.heart}>{isFavorite(item.id) ? '❤️' : '🤍'}</Text>
+      </TouchableOpacity>
       <View style={styles.cardBody}>
         <Text style={styles.cardTitle}>{item.title}</Text>
         <Text style={styles.cardLocation}>{item.location}</Text>
@@ -92,6 +97,8 @@ const styles = StyleSheet.create({
   list: { padding: 16, paddingTop: 4 },
   card: { backgroundColor: '#fff', borderRadius: 12, marginBottom: 16, overflow: 'hidden', elevation: 2 },
   cardImage: { width: '100%', height: 180 },
+  heartBtn: { position: 'absolute', top: 10, right: 10, padding: 4 },
+  heart: { fontSize: 22 },
   cardBody: { padding: 12 },
   cardTitle: { fontSize: 17, fontWeight: '600', color: '#111827' },
   cardLocation: { fontSize: 13, color: '#6B7280', marginTop: 2 },

@@ -1,16 +1,21 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, ScrollView, StyleSheet, SafeAreaView, Alert } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useFavorites } from '../context/FavoritesContext';
 
 export default function ListingDetailScreen({ route, navigation }) {
   const { listing } = route.params;
   const insets = useSafeAreaInsets();
+  const { toggle, isFavorite } = useFavorites();
 
   return (
     <SafeAreaView style={[styles.container, { paddingTop: insets.top }]}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
           <Text style={styles.backText}>← Back</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => toggle(listing.id)} style={styles.heartBtn}>
+          <Text style={styles.heart}>{isFavorite(listing.id) ? '❤️' : '🤍'}</Text>
         </TouchableOpacity>
       </View>
 
@@ -48,9 +53,11 @@ export default function ListingDetailScreen({ route, navigation }) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#fff' },
-  header: { paddingHorizontal: 16, paddingVertical: 8 },
+  header: { flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 16, paddingVertical: 8 },
   backBtn: { padding: 4 },
   backText: { fontSize: 16, color: '#2563EB', fontWeight: '500' },
+  heartBtn: { padding: 4 },
+  heart: { fontSize: 22 },
   content: { paddingBottom: 40 },
   image: { width: '100%', height: 280 },
   body: { padding: 20 },

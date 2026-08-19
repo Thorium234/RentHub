@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text } from 'react-native';
 import { AuthProvider, useAuth } from './src/context/AuthContext';
+import { FavoritesProvider } from './src/context/FavoritesContext';
 import HomeScreen from './src/screens/HomeScreen';
 import ListingDetailScreen from './src/screens/ListingDetailScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
@@ -59,9 +60,11 @@ function RootNavigator() {
 export default function App() {
   return (
     <AuthProvider>
-      <NavigationContainer>
-        <RootNavigator />
-      </NavigationContainer>
+      <FavoritesProvider>
+        <NavigationContainer>
+          <RootNavigator />
+        </NavigationContainer>
+      </FavoritesProvider>
     </AuthProvider>
   );
 }
