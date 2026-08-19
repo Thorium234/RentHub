@@ -42,8 +42,12 @@ export default function ListingDetailScreen({ route, navigation }) {
             <Text style={styles.ownerName}>{listing.owner.name}</Text>
           </View>
 
-          <TouchableOpacity style={styles.rentButton} onPress={() => navigation.navigate('Chat', { listing })}>
-            <Text style={styles.rentButtonText}>Chat with Owner</Text>
+          <TouchableOpacity style={styles.bookButton} onPress={() => navigation.navigate('BookingRequest', { listing })}>
+            <Text style={styles.bookButtonText}>Book Now</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.chatButton} onPress={() => navigation.navigate('Chat', { listing })}>
+            <Text style={styles.chatButtonText}>Chat with Owner</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -74,9 +78,14 @@ const styles = StyleSheet.create({
   },
   avatarText: { fontSize: 18, fontWeight: '600', color: '#2563EB' },
   ownerName: { fontSize: 15, color: '#374151' },
-  rentButton: {
+  bookButton: {
     backgroundColor: '#2563EB', borderRadius: 12, padding: 16,
     alignItems: 'center', marginTop: 24,
   },
-  rentButtonText: { color: '#fff', fontSize: 16, fontWeight: '600' },
+  bookButtonText: { color: '#fff', fontSize: 16, fontWeight: '600' },
+  chatButton: {
+    borderWidth: 1.5, borderColor: '#2563EB', borderRadius: 12, padding: 16,
+    alignItems: 'center', marginTop: 10,
+  },
+  chatButtonText: { color: '#2563EB', fontSize: 16, fontWeight: '600' },
 });

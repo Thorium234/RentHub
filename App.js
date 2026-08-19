@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text } from 'react-native';
 import { AuthProvider, useAuth } from './src/context/AuthContext';
 import { FavoritesProvider } from './src/context/FavoritesContext';
+import { BookingsProvider } from './src/context/BookingsContext';
 import HomeScreen from './src/screens/HomeScreen';
 import ListingDetailScreen from './src/screens/ListingDetailScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
@@ -12,6 +13,7 @@ import AuthScreen from './src/screens/AuthScreen';
 import FavoritesScreen from './src/screens/FavoritesScreen';
 import CreateListingScreen from './src/screens/CreateListingScreen';
 import ChatScreen from './src/screens/ChatScreen';
+import BookingRequestScreen from './src/screens/BookingRequestScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -53,6 +55,7 @@ function RootNavigator() {
           <Stack.Screen name="ListingDetail" component={ListingDetailScreen} />
           <Stack.Screen name="CreateListing" component={CreateListingScreen} />
           <Stack.Screen name="Chat" component={ChatScreen} />
+          <Stack.Screen name="BookingRequest" component={BookingRequestScreen} />
         </>
       )}
     </Stack.Navigator>
@@ -63,9 +66,11 @@ export default function App() {
   return (
     <AuthProvider>
       <FavoritesProvider>
-        <NavigationContainer>
-          <RootNavigator />
-        </NavigationContainer>
+        <BookingsProvider>
+          <NavigationContainer>
+            <RootNavigator />
+          </NavigationContainer>
+        </BookingsProvider>
       </FavoritesProvider>
     </AuthProvider>
   );
