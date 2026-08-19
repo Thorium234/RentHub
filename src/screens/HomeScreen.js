@@ -3,17 +3,20 @@ import { View, Text, FlatList, TextInput, TouchableOpacity, Image, StyleSheet, S
 import { CATEGORIES, LISTINGS } from '../data/mockData';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useFavorites } from '../context/FavoritesContext';
+import LocationFilter from '../components/LocationFilter';
 
 export default function HomeScreen({ navigation }) {
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCounty, setSelectedCounty] = useState(null);
   const insets = useSafeAreaInsets();
   const { toggle, isFavorite } = useFavorites();
 
   const filtered = LISTINGS.filter((l) => {
     const matchesSearch = l.title.toLowerCase().includes(search.toLowerCase());
     const matchesCategory = !selectedCategory || l.category === selectedCategory;
-    return matchesSearch && matchesCategory;
+    const matchesCounty = !selectedCounty || l.county === selectedCounty;
+    return matchesSearch && matchesCategory && matchesCounty;
   });
 
   const renderListing = ({ item }) => (
@@ -62,12 +65,32 @@ export default function HomeScreen({ navigation }) {
         )}
       />
 
+      <LocationFilter selected={selectedCounty} onSelect={setSelectedCounty} />
+
       <FlatList
         data={filtered}
         keyExtractor={(l) => l.id}
         renderItem={renderListing}
         contentContainerStyle={styles.list}
         ListEmptyComponent={<Text style={styles.empty}>No listings found</Text>}
+        ListFooterComponent={
+          <View style={styles.recommended}>
+            <Text style={styles.recTitle}>Recommended for you</Text>
+            {LISTINGS.filter((l) => !filtered.find((f) => f.id === l.id)).slice(0, 3).map((item) => (
+              <TouchableOpacity
+                key={item.id}
+                style={styles.recCard}
+                onPress={() => navigation.navigate('ListingDetail', { listing: item })}
+              >
+                <Image source={{ uri: item.imageUrl }} style={styles.recImage} />
+                <View style={styles.recBody}>
+                  <Text style={styles.recName}>{item.title}</Text>
+                  <Text style={styles.recPrice}>${item.price}/{item.priceUnit}</Text>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </View>
+        }
       />
 
       <TouchableOpacity style={styles.fab} onPress={() => navigation.navigate('CreateListing')}>
@@ -110,4 +133,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center', elevation: 4,
   },
   fabText: { color: '#fff', fontSize: 28, lineHeight: 30 },
+  recommended: { marginTop: 16, paddingTop: 16, borderTopWidth: 1, borderTopColor: '#E5E7EB' },
+  recTitle: { fontSize: 16, fontWeight: '600', color: '#374151', marginBottom: 10 },
+  recCard: { flexDirection: 'row', backgroundColor: '#fff', borderRadius: 10, marginBottom: 8, overflow: 'hidden', elevation: 1 },
+  recImage: { width: 80, height: 80 },
+  recBody: { flex: 1, padding: 10, justifyContent: 'center' },
+  recName: { fontSize: 14, fontWeight: '600', color: '#111827' },
+  recPrice: { fontSize: 13, fontWeight: '700', color: '#2563EB', marginTop: 2 },
 });

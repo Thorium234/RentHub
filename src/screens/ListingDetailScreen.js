@@ -52,10 +52,13 @@ export default function ListingDetailScreen({ route, navigation }) {
 
           <Text style={styles.sectionTitle}>Listed by</Text>
           <View style={styles.owner}>
-            <View style={styles.avatar}>
-              <Text style={styles.avatarText}>{listing.owner.name[0]}</Text>
-            </View>
-            <Text style={styles.ownerName}>{listing.owner.name}</Text>
+            <TouchableOpacity style={styles.ownerRow} onPress={() => navigation.navigate('OwnerProfile', { owner: listing.owner })}>
+              <View style={styles.avatar}>
+                <Text style={styles.avatarText}>{listing.owner.name[0]}</Text>
+              </View>
+              <Text style={styles.ownerName}>{listing.owner.name}</Text>
+              <Text style={styles.ownerArrow}>›</Text>
+            </TouchableOpacity>
           </View>
 
           <TouchableOpacity onPress={() => navigation.navigate('WriteReview', { ownerId: listing.owner.uid, ownerName: listing.owner.name })}>
@@ -91,13 +94,15 @@ const styles = StyleSheet.create({
   divider: { height: 1, backgroundColor: '#E5E7EB', marginVertical: 16 },
   sectionTitle: { fontSize: 16, fontWeight: '600', color: '#374151', marginBottom: 8 },
   description: { fontSize: 15, color: '#4B5563', lineHeight: 22 },
-  owner: { flexDirection: 'row', alignItems: 'center' },
+  owner: { marginTop: 4 },
+  ownerRow: { flexDirection: 'row', alignItems: 'center' },
   avatar: {
     width: 40, height: 40, borderRadius: 20, backgroundColor: '#DBEAFE',
     alignItems: 'center', justifyContent: 'center', marginRight: 10,
   },
   avatarText: { fontSize: 18, fontWeight: '600', color: '#2563EB' },
   ownerName: { fontSize: 15, color: '#374151' },
+  ownerArrow: { fontSize: 18, color: '#9CA3AF', marginLeft: 4 },
   reviewLink: { fontSize: 14, color: '#2563EB', fontWeight: '500', marginTop: 12 },
   bookButton: {
     backgroundColor: '#2563EB', borderRadius: 12, padding: 16,

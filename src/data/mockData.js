@@ -1,3 +1,7 @@
+export const COUNTIES = [
+  'Nairobi', 'Mombasa', 'Kisumu', 'Nakuru', 'Kakamega', 'Eldoret', 'Thika', 'Nyeri', 'Malindi', 'Kitale',
+];
+
 export const CATEGORIES = [
   { id: '1', name: 'Furniture', icon: '🛋️' },
   { id: '2', name: 'Electronics', icon: '📱' },
@@ -16,6 +20,7 @@ export const LISTINGS = [
     priceUnit: 'day',
     category: '1',
     location: 'Downtown',
+    county: 'Nairobi',
     imageUrl: 'https://picsum.photos/seed/sofa/400/300',
     owner: { uid: 'user-1', name: 'Alice', avatar: null },
     createdAt: '2026-08-01',
@@ -28,6 +33,7 @@ export const LISTINGS = [
     priceUnit: 'day',
     category: '2',
     location: 'University Area',
+    county: 'Nairobi',
     imageUrl: 'https://picsum.photos/seed/macbook/400/300',
     owner: { uid: 'user-2', name: 'Bob', avatar: null },
     createdAt: '2026-08-05',
@@ -40,6 +46,7 @@ export const LISTINGS = [
     priceUnit: 'day',
     category: '5',
     location: 'Riverside',
+    county: 'Kakamega',
     imageUrl: 'https://picsum.photos/seed/bike/400/300',
     owner: { uid: 'user-3', name: 'Charlie', avatar: null },
     createdAt: '2026-08-10',
@@ -52,6 +59,7 @@ export const LISTINGS = [
     priceUnit: 'day',
     category: '4',
     location: 'Industrial Zone',
+    county: 'Nakuru',
     imageUrl: 'https://picsum.photos/seed/drill/400/300',
     owner: { uid: 'user-4', name: 'Diana', avatar: null },
     createdAt: '2026-08-12',
@@ -64,6 +72,7 @@ export const LISTINGS = [
     priceUnit: 'day',
     category: '6',
     location: 'Mall Area',
+    county: 'Mombasa',
     imageUrl: 'https://picsum.photos/seed/jacket/400/300',
     owner: { uid: 'user-5', name: 'Eve', avatar: null },
     createdAt: '2026-08-14',
@@ -76,6 +85,7 @@ export const LISTINGS = [
     priceUnit: 'day',
     category: '5',
     location: 'Harbor',
+    county: 'Kisumu',
     imageUrl: 'https://picsum.photos/seed/kayak/400/300',
     owner: { uid: 'user-6', name: 'Frank', avatar: null },
     createdAt: '2026-08-15',
