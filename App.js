@@ -14,6 +14,9 @@ import FavoritesScreen from './src/screens/FavoritesScreen';
 import CreateListingScreen from './src/screens/CreateListingScreen';
 import ChatScreen from './src/screens/ChatScreen';
 import BookingRequestScreen from './src/screens/BookingRequestScreen';
+import OwnerDashboardScreen from './src/screens/OwnerDashboardScreen';
+import RentalHistoryScreen from './src/screens/RentalHistoryScreen';
+import NotificationsScreen from './src/screens/NotificationsScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -56,6 +59,9 @@ function RootNavigator() {
           <Stack.Screen name="CreateListing" component={CreateListingScreen} />
           <Stack.Screen name="Chat" component={ChatScreen} />
           <Stack.Screen name="BookingRequest" component={BookingRequestScreen} />
+          <Stack.Screen name="OwnerDashboard" component={OwnerDashboardScreen} />
+          <Stack.Screen name="RentalHistory" component={RentalHistoryScreen} />
+          <Stack.Screen name="Notifications" component={NotificationsScreen} />
         </>
       )}
     </Stack.Navigator>

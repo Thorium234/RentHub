@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-na
 import { useAuth } from '../context/AuthContext';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-export default function ProfileScreen() {
+export default function ProfileScreen({ navigation }) {
   const { user, signOut } = useAuth();
   const insets = useSafeAreaInsets();
 
@@ -19,8 +19,11 @@ export default function ProfileScreen() {
 
       <View style={styles.menu}>
         <MenuItem icon="📦" label="My Listings" />
-        <MenuItem icon="🔑" label="My Rentals" />
+        <MenuItem icon="🔑" label="My Rentals" onPress={() => navigation.navigate('RentalHistory')} />
+        <MenuItem icon="🏠" label="Owner Dashboard" onPress={() => navigation.navigate('OwnerDashboard')} />
+        <MenuItem icon="🔔" label="Notifications" onPress={() => navigation.navigate('Notifications')} />
         <MenuItem icon="⭐" label="Reviews" />
+        <MenuItem icon="✅" label="Verification" />
         <MenuItem icon="⚙️" label="Settings" />
       </View>
 
@@ -31,9 +34,9 @@ export default function ProfileScreen() {
   );
 }
 
-function MenuItem({ icon, label }) {
+function MenuItem({ icon, label, onPress }) {
   return (
-    <TouchableOpacity style={styles.menuItem}>
+    <TouchableOpacity style={styles.menuItem} onPress={onPress}>
       <Text style={styles.menuIcon}>{icon}</Text>
       <Text style={styles.menuLabel}>{label}</Text>
       <Text style={styles.menuArrow}>›</Text>
