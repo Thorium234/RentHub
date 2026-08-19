@@ -19,6 +19,11 @@ import OwnerDashboardScreen from './src/screens/OwnerDashboardScreen';
 import RentalHistoryScreen from './src/screens/RentalHistoryScreen';
 import NotificationsScreen from './src/screens/NotificationsScreen';
 import WriteReviewScreen from './src/screens/WriteReviewScreen';
+import OwnerProfileScreen from './src/screens/OwnerProfileScreen';
+import VerificationScreen from './src/screens/VerificationScreen';
+import ContractScreen from './src/screens/ContractScreen';
+import DisputeScreen from './src/screens/DisputeScreen';
+import AnalyticsScreen from './src/screens/AnalyticsScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -65,6 +70,11 @@ function RootNavigator() {
           <Stack.Screen name="RentalHistory" component={RentalHistoryScreen} />
           <Stack.Screen name="Notifications" component={NotificationsScreen} />
           <Stack.Screen name="WriteReview" component={WriteReviewScreen} />
+          <Stack.Screen name="OwnerProfile" component={OwnerProfileScreen} />
+          <Stack.Screen name="Verification" component={VerificationScreen} />
+          <Stack.Screen name="Contract" component={ContractScreen} />
+          <Stack.Screen name="Dispute" component={DisputeScreen} />
+          <Stack.Screen name="Analytics" component={AnalyticsScreen} />
         </>
       )}
     </Stack.Navigator>

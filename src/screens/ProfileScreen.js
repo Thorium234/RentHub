@@ -22,8 +22,11 @@ export default function ProfileScreen({ navigation }) {
         <MenuItem icon="🔑" label="My Rentals" onPress={() => navigation.navigate('RentalHistory')} />
         <MenuItem icon="🏠" label="Owner Dashboard" onPress={() => navigation.navigate('OwnerDashboard')} />
         <MenuItem icon="🔔" label="Notifications" onPress={() => navigation.navigate('Notifications')} />
+        <MenuItem icon="📊" label="Analytics" onPress={() => navigation.navigate('Analytics')} />
         <MenuItem icon="⭐" label="Reviews" />
-        <MenuItem icon="✅" label="Verification" />
+        <MenuItem icon="✅" label="Verification" onPress={() => navigation.navigate('Verification')} />
+        <MenuItem icon="📄" label="Rental Contracts" onPress={() => navigation.navigate('Contract')} />
+        <MenuItem icon="⚠️" label="File a Dispute" onPress={() => navigation.navigate('Dispute')} />
         <MenuItem icon="⚙️" label="Settings" />
       </View>
 
