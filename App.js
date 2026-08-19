@@ -6,6 +6,7 @@ import { Text } from 'react-native';
 import { AuthProvider, useAuth } from './src/context/AuthContext';
 import { FavoritesProvider } from './src/context/FavoritesContext';
 import { BookingsProvider } from './src/context/BookingsContext';
+import { ReviewsProvider } from './src/context/ReviewsContext';
 import HomeScreen from './src/screens/HomeScreen';
 import ListingDetailScreen from './src/screens/ListingDetailScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
@@ -17,6 +18,7 @@ import BookingRequestScreen from './src/screens/BookingRequestScreen';
 import OwnerDashboardScreen from './src/screens/OwnerDashboardScreen';
 import RentalHistoryScreen from './src/screens/RentalHistoryScreen';
 import NotificationsScreen from './src/screens/NotificationsScreen';
+import WriteReviewScreen from './src/screens/WriteReviewScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -62,6 +64,7 @@ function RootNavigator() {
           <Stack.Screen name="OwnerDashboard" component={OwnerDashboardScreen} />
           <Stack.Screen name="RentalHistory" component={RentalHistoryScreen} />
           <Stack.Screen name="Notifications" component={NotificationsScreen} />
+          <Stack.Screen name="WriteReview" component={WriteReviewScreen} />
         </>
       )}
     </Stack.Navigator>
@@ -73,9 +76,11 @@ export default function App() {
     <AuthProvider>
       <FavoritesProvider>
         <BookingsProvider>
-          <NavigationContainer>
-            <RootNavigator />
-          </NavigationContainer>
+          <ReviewsProvider>
+            <NavigationContainer>
+              <RootNavigator />
+            </NavigationContainer>
+          </ReviewsProvider>
         </BookingsProvider>
       </FavoritesProvider>
     </AuthProvider>

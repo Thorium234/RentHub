@@ -2,11 +2,24 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, ScrollView, StyleSheet, SafeAreaView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useFavorites } from '../context/FavoritesContext';
+import { useBookings } from '../context/BookingsContext';
+import AvailabilityCalendar from '../components/AvailabilityCalendar';
 
 export default function ListingDetailScreen({ route, navigation }) {
   const { listing } = route.params;
   const insets = useSafeAreaInsets();
   const { toggle, isFavorite } = useFavorites();
+  const { getBookingsForListing } = useBookings();
+
+  const bookedDates = getBookingsForListing(listing.id)
+    .filter((b) => b.status === 'confirmed')
+    .flatMap((b) => {
+      const dates = [];
+      const s = new Date(b.startDate);
+      const e = new Date(b.endDate);
+      while (s <= e) { dates.push(new Date(s).toISOString().split('T')[0]); s.setDate(s.getDate() + 1); }
+      return dates;
+    });
 
   return (
     <SafeAreaView style={[styles.container, { paddingTop: insets.top }]}>
@@ -32,6 +45,9 @@ export default function ListingDetailScreen({ route, navigation }) {
           <Text style={styles.sectionTitle}>Description</Text>
           <Text style={styles.description}>{listing.description}</Text>
 
+          <Text style={styles.sectionTitle}>Availability</Text>
+          <AvailabilityCalendar bookedDates={bookedDates} />
+
           <View style={styles.divider} />
 
           <Text style={styles.sectionTitle}>Listed by</Text>
@@ -41,6 +57,10 @@ export default function ListingDetailScreen({ route, navigation }) {
             </View>
             <Text style={styles.ownerName}>{listing.owner.name}</Text>
           </View>
+
+          <TouchableOpacity onPress={() => navigation.navigate('WriteReview', { ownerId: listing.owner.uid, ownerName: listing.owner.name })}>
+            <Text style={styles.reviewLink}>Write a review →</Text>
+          </TouchableOpacity>
 
           <TouchableOpacity style={styles.bookButton} onPress={() => navigation.navigate('BookingRequest', { listing })}>
             <Text style={styles.bookButtonText}>Book Now</Text>
@@ -78,6 +98,7 @@ const styles = StyleSheet.create({
   },
   avatarText: { fontSize: 18, fontWeight: '600', color: '#2563EB' },
   ownerName: { fontSize: 15, color: '#374151' },
+  reviewLink: { fontSize: 14, color: '#2563EB', fontWeight: '500', marginTop: 12 },
   bookButton: {
     backgroundColor: '#2563EB', borderRadius: 12, padding: 16,
     alignItems: 'center', marginTop: 24,
