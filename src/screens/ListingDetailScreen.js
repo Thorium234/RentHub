@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, ScrollView, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, Image, TouchableOpacity, ScrollView, StyleSheet, SafeAreaView, Alert } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function ListingDetailScreen({ route, navigation }) {
@@ -37,7 +37,7 @@ export default function ListingDetailScreen({ route, navigation }) {
             <Text style={styles.ownerName}>{listing.owner.name}</Text>
           </View>
 
-          <TouchableOpacity style={styles.rentButton}>
+          <TouchableOpacity style={styles.rentButton} onPress={() => Alert.alert('Request Sent', `Your request for "${listing.title}" has been sent to ${listing.owner.name}.`)}>
             <Text style={styles.rentButtonText}>Request to Rent</Text>
           </TouchableOpacity>
         </View>
