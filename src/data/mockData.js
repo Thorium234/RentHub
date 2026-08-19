@@ -18,7 +18,7 @@ export const LISTINGS = [
     location: 'Downtown',
     imageUrl: 'https://picsum.photos/seed/sofa/400/300',
     owner: { uid: 'user-1', name: 'Alice', avatar: null },
-    createdAt: new Date('2026-08-01'),
+    createdAt: '2026-08-01',
   },
   {
     id: '2',
@@ -30,7 +30,7 @@ export const LISTINGS = [
     location: 'University Area',
     imageUrl: 'https://picsum.photos/seed/macbook/400/300',
     owner: { uid: 'user-2', name: 'Bob', avatar: null },
-    createdAt: new Date('2026-08-05'),
+    createdAt: '2026-08-05',
   },
   {
     id: '3',
@@ -42,7 +42,7 @@ export const LISTINGS = [
     location: 'Riverside',
     imageUrl: 'https://picsum.photos/seed/bike/400/300',
     owner: { uid: 'user-3', name: 'Charlie', avatar: null },
-    createdAt: new Date('2026-08-10'),
+    createdAt: '2026-08-10',
   },
   {
     id: '4',
@@ -54,7 +54,7 @@ export const LISTINGS = [
     location: 'Industrial Zone',
     imageUrl: 'https://picsum.photos/seed/drill/400/300',
     owner: { uid: 'user-4', name: 'Diana', avatar: null },
-    createdAt: new Date('2026-08-12'),
+    createdAt: '2026-08-12',
   },
   {
     id: '5',
@@ -66,7 +66,7 @@ export const LISTINGS = [
     location: 'Mall Area',
     imageUrl: 'https://picsum.photos/seed/jacket/400/300',
     owner: { uid: 'user-5', name: 'Eve', avatar: null },
-    createdAt: new Date('2026-08-14'),
+    createdAt: '2026-08-14',
   },
   {
     id: '6',
@@ -78,6 +78,6 @@ export const LISTINGS = [
     location: 'Harbor',
     imageUrl: 'https://picsum.photos/seed/kayak/400/300',
     owner: { uid: 'user-6', name: 'Frank', avatar: null },
-    createdAt: new Date('2026-08-15'),
+    createdAt: '2026-08-15',
   },
 ];
